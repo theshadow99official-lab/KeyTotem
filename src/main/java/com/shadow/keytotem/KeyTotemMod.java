@@ -73,9 +73,9 @@ public class KeyTotemMod implements ClientModInitializer {
             // No totem found
             SystemToast.add(
                     client.getToastManager(),
-                    SystemToast.Type.PACK_TUTORIAL, // Safe toast type
+                    SystemToast.Type.PERIODIC_NOTIFICATION, // Safe toast type
                     Text.literal("No Totem Found"),
-                    Text.literal("You don't have any totems in your inventory.")
+                    Text.literal("No Totem Available")
             );
         }
     }
