@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "keytotem",
+  "version": "1.0.0",
+  "name": "Key Totem",
+  "description": "Equip a Totem of Undying to your offhand on key press",
+  "authors": ["You"],
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.example.keytotem.KeyTotemMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "1.21.1",
+    "fabric-api": "*"
+  }
+}
