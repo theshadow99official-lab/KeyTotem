@@ -71,7 +71,7 @@ public class KeyTotemMod implements ClientModInitializer {
 
     private void showToast(MinecraftClient client, Text message) {
         client.getToastManager().add(new SystemToast(
-                SystemToast.Type.TUTORIAL_HINT,
+               SystemToast.Type.PERIODIC_NOTIFICATION,
                 Text.literal("Key Totem"),
                 message
         ));
