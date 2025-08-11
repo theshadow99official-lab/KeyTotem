@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.toast.SystemToast;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -21,12 +20,14 @@ public class KeyTotemMod implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        // Register keybinding
         totemKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 KEY_TOTEM,
-                GLFW.GLFW_KEY_G, // Default key: G
+                GLFW.GLFW_KEY_G, // Default key
                 KEY_CATEGORY
         ));
 
+        // Check each tick for key press
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (totemKey.wasPressed()) {
                 equipTotem(client);
@@ -39,14 +40,14 @@ public class KeyTotemMod implements ClientModInitializer {
 
         PlayerEntity player = client.player;
 
-        // If already holding a totem in offhand, do nothing
+        // Skip if already holding a totem in offhand
         if (player.getOffHandStack().getItem() == Items.TOTEM_OF_UNDYING) {
             return;
         }
 
         int slotWithTotem = -1;
 
-        // Find a totem in inventory (0–35 are main inventory, hotbar)
+        // Search inventory for a real totem
         for (int i = 0; i < player.getInventory().main.size(); i++) {
             ItemStack stack = player.getInventory().main.get(i);
             if (stack.getItem() == Items.TOTEM_OF_UNDYING) {
@@ -56,27 +57,20 @@ public class KeyTotemMod implements ClientModInitializer {
         }
 
         if (slotWithTotem != -1) {
-            // Swap using clickSlot so server syncs the change
-            int inventorySlot = slotWithTotem < 9 ? slotWithTotem + 36 : slotWithTotem; // Convert hotbar index
+            // Convert hotbar index to container slot index
+            int inventorySlot = slotWithTotem < 9 ? slotWithTotem + 36 : slotWithTotem;
+
+            // Swap with offhand using clickSlot (server sync)
             client.interactionManager.clickSlot(
                     player.currentScreenHandler.syncId,
                     inventorySlot,
-                    40, // 40 = offhand slot
+                    40, // Offhand slot index
                     SlotActionType.SWAP,
                     player
             );
 
-            // Show feedback
+            // Optional on-screen feedback
             client.inGameHud.setOverlayMessage(Text.literal("Totem equipped!"), false);
-
-        } else {
-            // No totem found
-            SystemToast.add(
-                    client.getToastManager(),
-                    SystemToast.Type.PERIODIC_NOTIFICATION, // Safe toast type
-                    Text.literal("No Totem Found"),
-                    Text.literal("No Totem Available")
-            );
         }
     }
 }
