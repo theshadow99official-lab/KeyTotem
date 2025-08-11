@@ -8,7 +8,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "com.shadow.keytotem"
+      "com.shadow.keytotem.KeyTotemmod."
     ]
   },
   "depends": {
