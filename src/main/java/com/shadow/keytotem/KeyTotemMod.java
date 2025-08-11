@@ -64,7 +64,7 @@ public class KeyTotemMod implements ClientModInitializer {
             client.interactionManager.clickSlot(
                     player.currentScreenHandler.syncId,
                     inventorySlot,
-                    40, // Offhand slot index
+                    45, // Offhand slot index
                     SlotActionType.SWAP,
                     player
             );
