@@ -1,19 +1,25 @@
 {
   "schemaVersion": 1,
-  "id": "keytotem",
-  "version": "1.0.0",
-  "name": "Key Totem",
-  "description": "Equip a Totem of Undying to your offhand on key press",
-  "authors": ["You"],
-  "environment": "client",
+  "id": "autototem",
+  "version": "1.0.5",
+  "name": "KeyTotem",
+  "description": "Automatically equips totems into your offhand on keypress.",
+  "authors": [
+    "Shadow"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
   "entrypoints": {
     "client": [
-      "com.shadow.keytotem.KeyTotemmod."
+      "com.shadow.keytotem.client.KeyTotemClient"
     ]
   },
+  "mixins": [
+    "keytotem.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.16.0",
-    "minecraft": "1.21.1",
-    "fabric-api": "*"
+    "fabric": "*"
   }
 }
