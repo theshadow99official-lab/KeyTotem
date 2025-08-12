@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.shadow.keytotem.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "OnTotemPopMixin",
+    "ServerOptOut"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
